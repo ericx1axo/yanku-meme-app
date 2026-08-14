@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yanku.com - Automated Random Meme Generator & Ad Platform</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="brand-container">
+            <div class="brand-logo">YANKU.COM</div>
+            <div class="brand-badge">AUTO MEME AI</div>
+        </div>
+
+        <div class="header-actions">
+            <button class="autopilot-toggle" id="autopilot-btn" onclick="MemeEngine.toggleAutoPilot()">
+                <span class="pulsing-dot"></span>
+                <span>🤖 Auto-Pilot Script</span>
+            </button>
+
+            <button class="btn btn-secondary" onclick="openDomainModal()" style="font-size: 0.85rem;">
+                🌐 Domain Setup (yanku.com)
+            </button>
+        </div>
+    </header>
+
+    <!-- Top Leaderboard Ad Slot (728x90) -->
+    <div class="ad-slot ad-banner-top">
+        <!-- Injected by AdManager -->
+    </div>
+
+    <div class="main-wrapper">
+        <div class="content-feed">
+            <!-- Controls Bar -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <div>
+                    <h1 style="font-family: var(--font-heading); font-size:1.6rem; color:var(--primary);">🔥 LIVE RANDOM MEME STREAM</h1>
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Automated viral meme generator & instant canvas studio.</p>
+                </div>
+                <button class="btn btn-primary" onclick="MemeEngine.generateRandomMeme()">
+                    🎲 Generate Random Meme
+                </button>
+            </div>
+
+            <!-- Meme Studio Canvas Collapsible -->
+            <div class="meme-card" style="padding:1.5rem; margin-bottom:2rem;">
+                <h3 style="font-family:var(--font-heading); margin-bottom:1rem; color:var(--secondary);">🎨 Custom Meme Studio Canvas</h3>
+                <div style="display:flex; gap:1.5rem; flex-wrap:wrap;">
+                    <div style="flex:1; min-width:280px;">
+                        <canvas id="studio-canvas" width="600" height="600" style="width:100%; border-radius: var(--radius-sm); border:1px solid var(--border);"></canvas>
+                    </div>
+                    <div style="flex:1; min-width:260px; display:flex; flex-direction:column; gap:1rem;">
+                        <div>
+                            <label style="display:block; font-size:0.85rem; margin-bottom:0.4rem; color:var(--text-muted);">Top Text</label>
+                            <input type="text" id="input-top-text" class="action-btn" style="width:100%; text-align:left;" value="WHEN CODE WORKS ON FIRST TRY">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; margin-bottom:0.4rem; color:var(--text-muted);">Bottom Text</label>
+                            <input type="text" id="input-bottom-text" class="action-btn" style="width:100%; text-align:left;" value="SUSPICIOUS AF 🤨">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; margin-bottom:0.4rem; color:var(--text-muted);">Meme Theme</label>
+                            <select id="select-bg-theme" class="action-btn" style="width:100%; text-align:left;">
+                                <option value="cyber">⚡ Cyberpunk Dark</option>
+                                <option value="fire">🔥 Lava Red</option>
+                                <option value="emerald">💎 Emerald Green</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="CanvasStudio.downloadStudioMeme()" style="margin-top:auto;">
+                            ⬇️ Download High-Res PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Automated Meme Grid Feed -->
+            <div class="meme-grid" id="meme-feed-grid">
+                <!-- Appended dynamically by MemeEngine -->
+            </div>
+        </div>
+
+        <!-- Sidebar with Ad Banner & Revenue Analytics -->
+        <aside style="display:flex; flex-direction:column; gap:1.5rem;">
+            <!-- Ad Monetization Stats Widget -->
+            <div class="meme-card" style="padding:1.25rem;">
+                <h4 style="font-family:var(--font-heading); color:var(--primary); margin-bottom:0.75rem;">💰 Ad Monetization Live</h4>
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.9rem;">
+                    <span style="color:var(--text-muted);">Impressions:</span>
+                    <strong id="ad-stat-impressions">1,420</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+                    <span style="color:var(--text-muted);">Est. Revenue:</span>
+                    <strong id="ad-stat-revenue" style="color:#10b981;">$12.45</strong>
+                </div>
+            </div>
+
+            <!-- Sidebar Ad Slot (300x600) -->
+            <div class="ad-slot ad-sidebar">
+                <!-- Injected by AdManager -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Sticky Footer Ad Slot (728x90) -->
+    <div class="ad-slot ad-sticky-footer">
+        <!-- Injected by AdManager -->
+    </div>
+
+    <!-- Domain Setup Guidance Modal -->
+    <div class="modal-overlay" id="domain-modal" style="display: none;">
+        <div class="modal-card">
+            <h2 style="font-family:var(--font-heading); color:var(--primary); margin-bottom:1rem;">🌐 How to Open via Yanku.com</h2>
+            
+            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1rem;">
+                By default, local servers run on <code>http://127.0.0.1:8888</code>. To open this site directly by typing <strong><code>http://yanku.com:8888</code></strong> in your computer's web browser:
+            </p>
+
+            <div style="background:var(--bg-main); padding:1rem; border-radius:var(--radius-sm); font-size:0.85rem; border:1px solid var(--border); margin-bottom:1.5rem;">
+                <strong>Option A: Local Windows Hosts File Mapping</strong><br>
+                1. Open Notepad as Administrator.<br>
+                2. Open <code>C:\Windows\System32\drivers\etc\hosts</code><br>
+                3. Add this line at the end:
+                <pre style="color:var(--primary); margin-top:0.4rem;">127.0.0.1   yanku.com</pre>
+                4. Now typing <code>http://yanku.com:8888</code> will open your local app!
+            </div>
+
+            <div style="background:var(--bg-main); padding:1rem; border-radius:var(--radius-sm); font-size:0.85rem; border:1px solid var(--border); margin-bottom:1.5rem;">
+                <strong>Option B: Live Domain Deployment (Vercel / Netlify)</strong><br>
+                1. Upload this folder to GitHub.<br>
+                2. Connect your repository to Vercel or Netlify.<br>
+                3. Point your DNS records for <strong>yanku.com</strong> to Vercel/Netlify for global access!
+            </div>
+
+            <button class="btn btn-primary" onclick="closeDomainModal()" style="width:100%;">Got it!</button>
+        </div>
+    </div>
+
+    <script src="js/meme_engine.js"></script>
+    <script src="js/canvas_editor.js"></script>
+    <script src="js/ad_manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            MemeEngine.init();
+            CanvasStudio.init();
+            AdManager.init();
+        });
+
+        function openDomainModal() {
+            document.getElementById('domain-modal').style.display = 'grid';
+        }
+
+        function closeDomainModal() {
+            document.getElementById('domain-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/__pycache__": true,
+        "**/*.pyc": true
+    },
+    "liveServer.settings.port": 8888
+}
